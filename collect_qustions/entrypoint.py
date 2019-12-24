@@ -31,5 +31,5 @@ while retry:
     if retry:
         max_id = status.max_id - 1
 
-dump = list(map(lambda stat: { "url": f"https://twitter.com/IPPONGP/status/{stat.id_str}", "image": stat.extended_entities['media'][0]['media_url_https'] }, result))
+dump = list(map(lambda stat: { "enable": True, "url": f"https://twitter.com/IPPONGP/status/{stat.id_str}", "image": stat.extended_entities['media'][0]['media_url_https'] }, result))
 print(json.dumps(dump))
