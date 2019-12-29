@@ -1,10 +1,8 @@
 #!/usr/bin/env python3
 
-import sys
 import tweepy
 import os
 import json
-from tweepy.binder import bind_api
 from dotenv import load_dotenv
 
 load_dotenv("./.env")
@@ -31,5 +29,12 @@ while retry:
     if retry:
         max_id = status.max_id - 1
 
-dump = list(map(lambda stat: { "enable": True, "url": f"https://twitter.com/IPPONGP/status/{stat.id_str}", "image": stat.extended_entities['media'][0]['media_url_https'] }, result))
+def encode(stat):
+    return {
+        "enable": True,
+        "url": f"https://twitter.com/IPPONGP/status/{stat.id_str}",
+        "image": stat.extended_entities['media'][0]['media_url_https']
+    }
+
+dump = list(map(lambda stat: encode(stat), result))
 print(json.dumps(dump))
